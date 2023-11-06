@@ -21,13 +21,23 @@ import java.util.List;
  *
  * @author damia
  */
+@Path("/book")
 public class BookRest {
 
+    @OPTIONS
+    public Response preflight() {
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .header("Access-Control-Allow-Headers", "Content-Type")
+                .build();
+    }
+
     @POST
-    @Path("/insertBook")
+    @Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response insertBook(Book book) {
+    public Response insert(Book book) {
         BookCqrs bookCQRS = new BookCqrs();
         Book insertedBook = bookCQRS.registerBook(book);
 
@@ -39,10 +49,10 @@ public class BookRest {
     }
 
     @PUT
-    @Path("/updateBook")
+    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateBook(Book book) {
+    public Response update(Book book) {
         BookCqrs bookCQRS = new BookCqrs();
         Book updatedBook = bookCQRS.updateBook(book);
 
@@ -68,9 +78,9 @@ public class BookRest {
     }
 
     @GET
-    @Path("/getAllBooks")
+    @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllBooks() {
+    public Response getAll() {
         BookDao bookdao = new BookDao();
         List<Book> books = bookdao.getAllBooks();
 
@@ -78,9 +88,9 @@ public class BookRest {
     }
 
     @DELETE
-    @Path("/deleteBook/{idBook}")
+    @Path("/delete/{idBook}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteBook(@PathParam("idBook") Long idBook) {
+    public Response delete(@PathParam("idBook") Long idBook) {
         BookCqrs bookCQRS = new BookCqrs();
         boolean deleted = bookCQRS.deleteBook(idBook);
 
