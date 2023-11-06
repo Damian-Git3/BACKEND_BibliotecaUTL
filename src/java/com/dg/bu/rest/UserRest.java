@@ -36,7 +36,7 @@ public class UserRest {
         return usuarioAppService.register(usuario);
     }
 
-    @POST
+    @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
