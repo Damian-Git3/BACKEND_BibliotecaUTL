@@ -106,5 +106,12 @@ public class UserRest {
         }
     }
 
+    @GET
+    @Path("/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UserViewModel findUser(@PathParam("email") String email) {
+        return tuClase.findUser(email);
+    }
+
 
 }
