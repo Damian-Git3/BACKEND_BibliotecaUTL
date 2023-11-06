@@ -94,7 +94,7 @@ public class UserRest {
     @DELETE
     @Path("/delete/{idUsuario}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteUser(@PathParam("idUsuario") Long idUsuario) {
+    public Response delete(@PathParam("idUsuario") Long idUsuario) {
         UsuarioCqrs userCQRS = new UsuarioCqrs();
 
         boolean eliminado = userCQRS.deleteUser(idUsuario);
