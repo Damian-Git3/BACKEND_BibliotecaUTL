@@ -66,7 +66,7 @@ public class UserRest {
     @Path("/resetpass")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public UserViewModel ResetPassword(String email) {  
+    public UserViewModel resetPassword(String email) {  
         UserViewModel userViewModel = new UserViewModel();
         UsuarioDao usuarioDAO = new UsuarioDao();
         User user = usuarioDAO.verificarUsuario(email);
