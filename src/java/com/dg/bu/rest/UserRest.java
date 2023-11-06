@@ -17,8 +17,16 @@ import java.util.List;
  */
 @Path("/user")
 public class UserRest {
-    
-    
+
+    @OPTIONS
+    public Response preflight() {
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
+                .header("Access-Control-Allow-Headers", "Content-Type")
+                .build();
+    }
+
     @GET
     @Path("/saludar/{nombre}")
     @Produces(MediaType.TEXT_PLAIN)
