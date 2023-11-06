@@ -1,0 +1,41 @@
+<component name="libraryTable">
+  <library name="lib2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.activation-api-2.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.validation-api-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/com.google.gson_2.10.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.servlet-api-6.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/parsson-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.annotation-api-2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.persistence-api-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.json.bind-api-3.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.xml.bind-api-4.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/aopalliance-repackaged-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hk2-locator-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/yasson-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-hk2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.ws.rs-api-3.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-media-sse.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-server.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hk2-utils-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/osgi-resource-locator-1.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javassist-3.29.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.ws.rs-api-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-container-servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.inject-api-2.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mongo-java-driver-3.12.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-j-8.0.32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-container-servlet-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hk2-api-3.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-media-json-binding.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/com.google.gson_2.9.1.v20220915-1632.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jersey-media-jaxb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jakarta.json-api-2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.osgi.core-6.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

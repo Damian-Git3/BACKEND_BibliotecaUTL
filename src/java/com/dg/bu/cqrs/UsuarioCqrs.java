@@ -20,7 +20,7 @@ public class UsuarioCqrs {
         this.usuarioDAO = new UsuarioDao();
     }
 
-    public User registrarUsuario(User usuario) {
+    public User registerUser(User usuario) {
         // Verifica si el email ya existe en la base de datos
         if (usuarioDAO.verificarUsuario(usuario.getEmail()) != null) {
 
@@ -42,6 +42,39 @@ public class UsuarioCqrs {
 
         return usuario;
     }
+
+    public User updateUser(User usuario) {
+        // Verifica si el usuario existe en la base de datos
+        User existingUser = usuarioDAO.obtenerUsuarioPorId(usuario.getIdUser());
+
+        if (existingUser == null) {
+            System.out.println("El usuario no existe en la base de datos.");
+            return null;
+        }
+
+        // Copia los campos actualizados al usuario existente
+        existingUser.setEmail(usuario.getEmail());
+        existingUser.setName(usuario.getName());
+        existingUser.setPassword(usuario.getPassword());
+        existingUser.setRol(usuario.getRol());
+        existingUser.setStatus(usuario.getStatus());
+
+        // Realiza la actualización en la base de datos
+        return usuarioDAO.actualizarUsuario(existingUser);
+    }
+
+    public boolean deleteUser(Long idUsuario) {
+        User existingUser = usuarioDAO.obtenerUsuarioPorId(idUsuario);
+
+        if (existingUser != null) {
+            // El usuario existe, procedemos a eliminarlo
+            return usuarioDAO.deleteUser(idUsuario);
+
+        }
+
+        return false;
+
+    };
 
     public Boolean login(UserViewModel userLogin) {
         

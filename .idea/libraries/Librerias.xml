@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Librerias">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Librerias/mongo-java-driver-3.12.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Librerias/mysql-connector-j-8.0.32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Librerias/com.google.gson_2.10.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Librerias/com.google.gson_2.9.1.v20220915-1632.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

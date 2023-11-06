@@ -14,22 +14,32 @@ import com.dg.bu.model.User;
  */
 public class UsuariosAppService {
 
-    public User registrar(User user) {
-        UsuarioCqrs usuarioCqrs = new UsuarioCqrs();
+    private UsuarioCqrs usuarioCqrs;
+
+    public User register(User user) {
+        usuarioCqrs = new UsuarioCqrs();
         
         String contenido = "Joto el que confirme";
         
         EmailService emailService = new EmailService();
         emailService.enviarCorreo(user.getEmail(), contenido);
         // Inserta el usuario utilizando UsuarioCQRS
-        usuarioCqrs.registrarUsuario(user);
+        usuarioCqrs.registerUser(user);
         return user;
+    }
+
+    public User update(User user) {
+        usuarioCqrs = new UsuarioCqrs();
+
+        // Inserta el usuario utilizando UsuarioCQRS
+
+        return usuarioCqrs.updateUser(user);
     }
     
     
     public void recuperarCuenta(String email,String pass){
         
-        UsuarioCqrs usuarioCqrs = new UsuarioCqrs();
+        usuarioCqrs = new UsuarioCqrs();
         if (usuarioCqrs.restablecerContrasena(email, pass) != null) {
             EmailService emailService = new EmailService();
             

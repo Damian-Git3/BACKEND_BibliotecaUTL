@@ -1,21 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.dg.bu.rest;
 
-
+import com.dg.bu.cqrs.UsuarioCqrs;
 import com.dg.bu.dao.UsuarioDao;
 import com.dg.bu.model.User;
 import com.dg.bu.appservice.UsuariosAppService;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import com.dg.bu.viewmodel.UserViewModel;
+import jakarta.ws.rs.core.Response;
+
+import java.util.List;
 
 /**
  *
@@ -39,7 +33,17 @@ public class UserRest {
     public User register(User usuario) {        
         UsuariosAppService usuarioAppService = new UsuariosAppService();
         
-        return usuarioAppService.registrar(usuario);
+        return usuarioAppService.register(usuario);
+    }
+
+    @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public User update(User usuario) {
+        UsuariosAppService usuarioAppService = new UsuariosAppService();
+
+        return usuarioAppService.update(usuario);
     }
     
     @POST
@@ -76,5 +80,31 @@ public class UserRest {
         
         return null;
     }
-   
+
+    @GET
+    @Path("/getAll")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAll() {
+        UsuarioDao usuarioDAO = new UsuarioDao();
+        List<User> usuarios = usuarioDAO.getAllUsers();
+
+        return Response.ok(usuarios).build();
+    }
+
+    @DELETE
+    @Path("/delete/{idUsuario}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response eliminarUsuario(@PathParam("idUsuario") Long idUsuario) {
+        UsuarioCqrs userCQRS = new UsuarioCqrs();
+
+        boolean eliminado = userCQRS.deleteUser(idUsuario);
+
+        if (eliminado) {
+            return Response.ok("Usuario eliminado con éxito").build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("No se encontró el usuario o no se pudo eliminar").build();
+        }
+    }
+
+
 }

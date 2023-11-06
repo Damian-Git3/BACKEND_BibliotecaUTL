@@ -8,17 +8,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.dg.bu.model.User;
 import com.dg.bu.db.ConexionMySQL;
 
 /**
- *
  * @author damia
  */
 public class UsuarioDao {
+    private Connection connection;
 
     public User registrarUsuario(User usuario) {
-        Connection connection = null;
+        connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet generatedKeys = null;
         ConexionMySQL conexionMySQL = new ConexionMySQL();
@@ -66,8 +69,89 @@ public class UsuarioDao {
         return usuario;
     }
 
-    public User verificarUsuario(String email) {
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String selectQuery = "SELECT idUser, email, name, password, rol, status FROM users";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Long idUser = resultSet.getLong("idUser");
+                String email = resultSet.getString("email");
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                String rol = resultSet.getString("rol");
+                Integer status = resultSet.getInt("status");
+
+                User user = new User(idUser, email, name, password, rol, status);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+    public User actualizarUsuario(User usuario) {
         Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ConexionMySQL conexionMySQL = new ConexionMySQL();
+
+        try {
+            connection = conexionMySQL.open();
+            String sql = "UPDATE user SET name = ?, password = ?, rol = ? WHERE idUser = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, usuario.getName());
+            preparedStatement.setString(2, usuario.getPassword());
+            preparedStatement.setString(3, usuario.getRol());
+            preparedStatement.setLong(4, usuario.getIdUser());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Verifica si la actualización fue exitosa
+            if (rowsAffected > 0) {
+                return usuario; // Devuelve el usuario actualizado
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Puedes lanzar una excepción personalizada aquí si lo prefieres.
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                conexionMySQL.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null; // Devuelve null si la actualización no fue exitosa
+    }
+
+    public boolean deleteUser(Long idUser) {
+        String deleteQuery = "DELETE FROM users WHERE idUser = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
+            preparedStatement.setLong(1, idUser);
+            int rowsDeleted = preparedStatement.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                System.out.println("El usuario con ID " + idUser + " ha sido eliminado con éxito.");
+                return true; // La eliminación fue exitosa
+            } else {
+                System.out.println("No se encontró ningún usuario con ID " + idUser);
+                return false; // No se encontró ningún usuario con ese ID
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Ocurrió un error en la operación de eliminación
+        }
+    }
+
+    public User verificarUsuario(String email) {
+        connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         ConexionMySQL conexionMySQL = new ConexionMySQL();
@@ -77,7 +161,7 @@ public class UsuarioDao {
             String sql = "SELECT * FROM user WHERE email = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, email);
-            
+
             System.out.println("CONSULTA:  " + preparedStatement.toString());
             resultSet = preparedStatement.executeQuery();
 
@@ -90,7 +174,7 @@ public class UsuarioDao {
                 usuario.setPassword(resultSet.getString("password"));
                 usuario.setRol(resultSet.getString("rol"));
                 usuario.setStatus(resultSet.getInt("status"));
-                
+
                 return usuario;
             }
 
@@ -114,40 +198,30 @@ public class UsuarioDao {
             }
         }
     }
-    
-    public boolean actualizarUsuario(User usuario) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ConexionMySQL conexionMySQL = new ConexionMySQL();
 
-        try {
-            connection = conexionMySQL.open();
-            String sql = "UPDATE user SET name = ?, password = ?, rol = ? WHERE idUser = ?";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, usuario.getName());
-            preparedStatement.setString(2, usuario.getPassword());
-            preparedStatement.setString(3, usuario.getRol());
-            preparedStatement.setLong(4, usuario.getIdUser());
+    public User obtenerUsuarioPorId(Long idUsuario) {
+        User user = null;
+        String selectQuery = "SELECT idUsuario, email, nombre, password, rol, status FROM usuarios WHERE idUsuario = ?";
 
-            int rowsAffected = preparedStatement.executeUpdate();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+            preparedStatement.setLong(1, idUsuario);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Verifica si la actualización fue exitosa
-            return rowsAffected > 0;
+            if (resultSet.next()) {
+                Long id = resultSet.getLong("idUsuario");
+                String email = resultSet.getString("email");
+                String nombre = resultSet.getString("nombre");
+                String password = resultSet.getString("password");
+                String rol = resultSet.getString("rol");
+                Integer status = resultSet.getInt("status");
+
+                user = new User(id, email, nombre, password, rol, status);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Puedes lanzar una excepción personalizada aquí si lo prefieres.
-            return false;
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                conexionMySQL.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-    }
 
+        return user;
+    }
 
 }

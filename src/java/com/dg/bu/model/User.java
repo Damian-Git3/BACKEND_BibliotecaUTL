@@ -54,6 +54,9 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
+    public User(Long idUser, String email, String name, String password, String rol, Integer status) {
+    }
+
     public Long getIdUser() {
         return idUser;
     }
