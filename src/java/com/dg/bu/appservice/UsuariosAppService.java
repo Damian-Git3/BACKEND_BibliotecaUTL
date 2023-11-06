@@ -15,6 +15,7 @@ import com.dg.bu.model.User;
 public class UsuariosAppService {
 
     private UsuarioCqrs usuarioCqrs;
+    private UsuarioDAo userDao;
 
     public User register(User user) {
         usuarioCqrs = new UsuarioCqrs();
@@ -46,6 +47,18 @@ public class UsuariosAppService {
             emailService.enviarCorreo(email, "");
         }
     };
+
+    public UserViewModel findUser(String email){
+        UserViewModel userVM = new UserViewModel();
+        User user = userDao.verificarUsuario(email);
+        if(user != null){
+           
+            userVM.setEmail(user.getEmail());
+            userVM.setPassword(user.getPassword());
+        }
+
+        return userVM;
+    }
     
     
 }
