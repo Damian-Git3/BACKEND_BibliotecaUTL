@@ -64,9 +64,9 @@ public class BookRest {
     }
 
     @GET
-    @Path("/getBook/{idBook}")
+    @Path("/findBook/{idBook}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBook(@PathParam("idBook") Long idBook) {
+    public Response findBook(@PathParam("idBook") Long idBook) {
         BookDao bookdao = new BookDao();
         Book book = bookdao.getBookById(idBook);
 
