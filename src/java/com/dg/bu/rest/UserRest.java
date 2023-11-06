@@ -110,7 +110,9 @@ public class UserRest {
     @Path("/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     public UserViewModel findUser(@PathParam("email") String email) {
-        return tuClase.findUser(email);
+        UsuarioDao userDao = new UsuarioDao();
+        UserViewModel userVM = userDao.findUser(email);
+        return userVM;
     }
 
 
