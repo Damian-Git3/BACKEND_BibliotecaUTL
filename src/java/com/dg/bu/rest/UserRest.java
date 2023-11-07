@@ -8,7 +8,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import com.dg.bu.viewmodel.UserViewModel;
 import jakarta.ws.rs.core.Response;
-
+import jakarta.json.JsonObjectBuilder;
+import jakarta.json.Json;
 import java.util.List;
 
 /**
@@ -58,16 +59,21 @@ public class UserRest {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Boolean login(UserViewModel usuarioVM) {  
+    public Response login(UserViewModel usuarioVM) {  
         UsuarioDao usuarioDAO = new UsuarioDao();
         User user = usuarioDAO.verificarUsuario(usuarioVM.getEmail());
 
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
         if (user != null && usuarioVM.getPassword().equals(user.getPassword())) {
             System.out.println("USUARIO ENCONTRADO: " + user.toString());
-            return true;
+            builder.add("login", true);
+            builder.add("rol", user.getRol());
+        } else {
+            builder.add("login", false);
         }
-        
-        return false;
+
+        return Response.ok(builder.build()).build();
     }
     
     @POST
