@@ -115,12 +115,23 @@ public class UserRest {
     }
 
     @GET
-    @Path("/{email}")
+    @Path("/find/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     public UserViewModel find(@PathParam("email") String email) {
-        UsuarioDao userDao = new UsuarioDao();
-        UserViewModel userVM = userDao.findUser(email);
+        System.out.println("EMAIL" + email);
+        UsuariosAppService userAS = new UsuariosAppService();
+        UserViewModel userVM = userAS.findUser(email);
         return userVM;
+    }
+    
+    @GET
+    @Path("/findUser/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User findUser(@PathParam("email") String email) {
+        System.out.println("EMAIL" + email);
+        UsuariosAppService userAS = new UsuariosAppService();
+        
+        return userAS.findUserAll(email);
     }
 
 

@@ -7,6 +7,7 @@ package com.dg.bu.appservice;
 import com.dg.bu.cqrs.UsuarioCqrs;
 import com.dg.bu.dao.UsuarioDao;
 import com.dg.bu.model.User;
+import com.dg.bu.viewmodel.UserViewModel;
 
 /**
  *
@@ -55,6 +56,18 @@ public class UsuariosAppService {
         }
 
         return userVM;
+    }
+    
+    public User findUserAll(String email){
+        
+        User user = userDao.verificarUsuario(email);
+        
+        if(user != null){
+           
+            return user;
+        }
+
+        return null;
     }
     
     
