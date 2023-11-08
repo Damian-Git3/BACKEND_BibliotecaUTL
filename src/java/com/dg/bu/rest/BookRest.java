@@ -4,14 +4,9 @@
  */
 package com.dg.bu.rest;
 
-import com.dg.bu.cqrs.UsuarioCqrs;
-import com.dg.bu.dao.UsuarioDao;
-import com.dg.bu.model.User;
-import com.dg.bu.appservice.UsuariosAppService;
 import com.dg.bu.model.Book;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import com.dg.bu.viewmodel.UserViewModel;
 import jakarta.ws.rs.core.Response;
 import com.dg.bu.cqrs.BookCqrs;
 import com.dg.bu.dao.BookDao;

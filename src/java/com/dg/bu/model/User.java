@@ -55,7 +55,23 @@ public class User implements Serializable {
     }
 
     public User(Long idUser, String email, String name, String password, String rol, Integer status) {
+        this.idUser = idUser;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.rol = rol;
+        this.status = status;
     }
+
+    public User(String email, String name, String password, String rol, Integer status) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.rol = rol;
+        this.status = status;
+    }
+
+    
 
     public Long getIdUser() {
         return idUser;

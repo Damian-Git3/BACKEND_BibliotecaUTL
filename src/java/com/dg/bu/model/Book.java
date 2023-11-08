@@ -54,7 +54,19 @@ public class Book implements Serializable {
     }
 
     public Book(Long idBook, String author, String libroBase64, String name, String university) {
+        this.idBook = idBook;
+        this.author = author;
+        this.libroBase64 = libroBase64;
+        this.name = name;
+        this.university = university;
     }
+
+    public Book(String author, String libroBase64, String name, String university) {
+        this.author = author;
+        this.libroBase64 = libroBase64;
+        this.name = name;
+        this.university = university;
+    }    
 
     public Long getIdBook() {
         return idBook;

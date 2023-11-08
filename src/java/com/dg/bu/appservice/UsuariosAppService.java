@@ -25,8 +25,8 @@ public class UsuariosAppService {
         EmailService emailService = new EmailService();
         emailService.enviarCorreo(user.getEmail(), contenido);
         // Inserta el usuario utilizando UsuarioCQRS
-        usuarioCqrs.registerUser(user);
-        return user;
+       
+        return  usuarioCqrs.registerUser(user);
     }
 
     public User update(User user) {

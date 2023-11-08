@@ -53,6 +53,7 @@ public class UsuarioCqrs {
         }
 
         // Copia los campos actualizados al usuario existente
+        existingUser.setIdUser(usuario.getIdUser());
         existingUser.setEmail(usuario.getEmail());
         existingUser.setName(usuario.getName());
         existingUser.setPassword(usuario.getPassword());
@@ -77,31 +78,31 @@ public class UsuarioCqrs {
     };
 
     public Boolean login(UserViewModel userLogin) {
-        
-        //Verifica si el usuario existe, si no devuelve null, si existe devuelve un 
+
+        // Verifica si el usuario existe, si no devuelve null, si existe devuelve un
         User user = usuarioDAO.verificarUsuario(userLogin.getEmail());
 
         if (user != null && userLogin.getPassword().equals(user.getPassword())) {
             System.out.println("USUARIO ENCONTRADO: " + user.toString());
             return true;
         }
-        
+
         return false;
 
     }
-    
-    public UserViewModel restablecerContrasena(String email, String newpass){        
-        
+
+    public UserViewModel restablecerContrasena(String email, String newpass) {
+
         User usactual = usuarioDAO.verificarUsuario(email);
-        
-        UserViewModel userViewModel = new UserViewModel(usactual.getEmail(),usactual.getPassword());        
-        
+
+        UserViewModel userViewModel = new UserViewModel(usactual.getEmail(), usactual.getPassword());
+
         if (usactual != null) {
             usactual.setPassword(newpass);
             usuarioDAO.actualizarUsuario(usactual);
             return userViewModel;
         }
-        
+
         return null;
     }
 

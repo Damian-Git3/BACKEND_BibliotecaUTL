@@ -34,53 +34,87 @@ public class UserRest {
     public String saludar(@PathParam("nombre") String nombre) {
         return "¡Hola, " + nombre + "!";
     }
-    
+
     @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public User register(User usuario) {        
+    public Response register(User usuario) {
         UsuariosAppService usuarioAppService = new UsuariosAppService();
-        
-        return usuarioAppService.register(usuario);
+        User user = usuarioAppService.register(usuario);
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        if (user == null) {
+            builder.add("message", "El correo electrónico ya existe");
+            return Response.status(Response.Status.BAD_REQUEST).entity(builder.build()).build();
+        } else {
+            builder.add("id", user.getIdUser());
+            builder.add("email", user.getEmail());
+            builder.add("name", user.getName());
+            builder.add("password", user.getPassword());
+            builder.add("rol", user.getRol());
+
+            return Response.ok(builder.build()).build();
+        }
     }
 
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public User update(User usuario) {
+    public Response update(User usuario) {
         UsuariosAppService usuarioAppService = new UsuariosAppService();
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        return usuarioAppService.update(usuario);
+        User user = usuarioAppService.update(usuario);
+
+        if (user == null) {
+            builder.add("message", "Usuario no Encontrado");
+            return Response.status(Response.Status.BAD_REQUEST).entity(builder.build()).build();
+        } else {
+            builder.add("id", user.getIdUser());
+            builder.add("email", user.getEmail());
+            builder.add("name", user.getName());
+            builder.add("password", user.getPassword());
+            builder.add("rol", user.getRol());
+
+            return Response.ok(builder.build()).build();
+        }
     }
-    
+
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(UserViewModel usuarioVM) {  
-        UsuarioDao usuarioDAO = new UsuarioDao();
-        User user = usuarioDAO.verificarUsuario(usuarioVM.getEmail());
+    public Response login(UserViewModel usuarioVM) {
+        try {
+            UsuarioDao usuarioDAO = new UsuarioDao();
+            User user = usuarioDAO.verificarUsuario(usuarioVM.getEmail());
 
-        JsonObjectBuilder builder = Json.createObjectBuilder();
+            JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        if (user != null && usuarioVM.getPassword().equals(user.getPassword())) {
-            System.out.println("USUARIO ENCONTRADO: " + user.toString());
-            builder.add("login", true);
-            builder.add("rol", user.getRol());
-        } else {
-            builder.add("login", false);
+            if (user != null && usuarioVM.getPassword().equals(user.getPassword())) {
+                System.out.println("USUARIO ENCONTRADO: " + user.toString());
+                builder.add("login", true);
+                builder.add("rol", user.getRol());
+            } else {
+                builder.add("login", false);
+            }
+
+            return Response.ok(builder.build()).build();
+        } catch (Exception e) {
+            JsonObjectBuilder builder = Json.createObjectBuilder();
+            builder.add("error", e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(builder.build()).build();
         }
-
-        return Response.ok(builder.build()).build();
     }
-    
+
     @POST
     @Path("/resetpass")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public UserViewModel resetPassword(String email) {  
+    public UserViewModel resetPassword(String email) {
         UserViewModel userViewModel = new UserViewModel();
         UsuarioDao usuarioDAO = new UsuarioDao();
         User user = usuarioDAO.verificarUsuario(email);
@@ -91,7 +125,7 @@ public class UserRest {
             userViewModel.setPassword(user.getPassword());
             return userViewModel;
         }
-        
+
         return null;
     }
 
@@ -129,16 +163,15 @@ public class UserRest {
         UserViewModel userVM = userAS.findUser(email);
         return userVM;
     }
-    
+
     @GET
     @Path("/findUser/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     public User findUser(@PathParam("email") String email) {
-        System.out.println("EMAIL" + email);
+
         UsuariosAppService userAS = new UsuariosAppService();
-        
+
         return userAS.findUserAll(email);
     }
-
 
 }
