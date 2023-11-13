@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/src/java/com/dg/bu/dao/UsuarioDao.java</file>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/src/java/com/dg/bu/model/User.java</file>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/src/java/com/dg/bu/appservice/UsuariosAppService.java</file>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/src/java/com/dg/bu/viewmodel/UserViewModel.java</file>
+            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/web/js/main.js</file>
             <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/web/index.html</file>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/src/java/com/dg/bu/model/Book.java</file>
-            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/src/java/com/dg/bu/rest/UserRest.java</file>
+            <file>file:/C:/Users/damia/Documents/Practicas/Proyectos/BACKEND_BibliotecaUTL/web/loginModule/loginController.js</file>
         </group>
     </open-files>
 </project-private>

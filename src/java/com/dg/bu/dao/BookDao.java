@@ -116,7 +116,7 @@ public class BookDao {
                 System.out.println("El libro con ID " + book.getIdBook() + " ha sido actualizado con éxito.");
     
                 // Después de la actualización, recupera el libro actualizado de la base de datos
-                Book updatedBook = getBookById(book.getIdBook());
+                Book updatedBook = getBookById(book.getIdBook().intValue());
                 return updatedBook;
             } else {
                 System.out.println("No se encontró ningún libro con ID " + book.getIdBook());
@@ -167,7 +167,7 @@ public class BookDao {
         }
     }
 
-    public Book getBookById(Long idBook) {
+    public Book getBookById(int idBook) {
         String selectQuery = "SELECT * FROM book WHERE id_book = ?";
         connection = null;
         preparedStatement = null;

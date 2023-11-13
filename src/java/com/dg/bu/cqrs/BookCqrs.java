@@ -8,17 +8,20 @@ public class BookCqrs {
     private BookDao bookDao;
 
     public Book registerBook(Book book) {
-        bookDao = new BookDao();
-        // Verifica si el libro ya existe en la base de datos
-        //if (bookDao.checkBookExistence(book.getName())) {
-        //    System.out.println("El libro ya existe en la base de datos.");
-        //    return null;
-        //}
+      bookDao = new BookDao();
+      // Verifica si el libro ya existe en la base de datos
+      //if (bookDao.checkBookExistence(book.getName())) {
+      //    System.out.println("El libro ya existe en la base de datos.");
+      //    return null;
+      //}
 
-        // Puedes realizar otras validaciones antes de registrar el libro
+      // Puedes realizar otras validaciones antes de registrar el libro
+      if (book != null) {
         // Inserta el libro en la base de datos
-        
         return book = bookDao.insertBook(book);
+      }
+
+      return null;
     }
 
     public Book updateBook(Book book) {

@@ -20,7 +20,7 @@ public class UsuariosAppService {
 
     public User register(User user) {
         
-        String contenido = "Joto el que confirme";
+        String contenido = "confirme";
         
         EmailService emailService = new EmailService();
         emailService.enviarCorreo(user.getEmail(), contenido);

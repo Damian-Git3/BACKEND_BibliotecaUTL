@@ -18,7 +18,8 @@ public class ConexionMySQL {
         //Contraseña de base de datos
         String password = "root";
         //URL de BaseDeDatos
-        String url = "jdbc:mysql://127.0.0.1:3306/libreria?useSSL=false&useUnicode=true&characterEncoding=utf-8";
+        //String url = "jdbc:mysql://127.0.0.1:3306/libreria?useSSL=false&useUnicode=true&characterEncoding=utf-8";
+        String url = "jdbc:mysql://localhost:3306/libreria?allowPublicKeyRetrieval=true";
         
         //Realizamos un TRY para la conexión de BD
         try {

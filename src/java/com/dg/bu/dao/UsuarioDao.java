@@ -104,12 +104,13 @@ public class UsuarioDao {
 
         try {
             connection = conexionMySQL.open();
-            String sql = "UPDATE user SET name = ?, password = ?, rol = ? WHERE id_user = ?";
+            String sql = "UPDATE user SET name = ?, password = ?, rol = ?, email = ? WHERE id_user = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, usuario.getName());
             preparedStatement.setString(2, usuario.getPassword());
             preparedStatement.setString(3, usuario.getRol());
-            preparedStatement.setLong(4, usuario.getIdUser());
+            preparedStatement.setString(4, usuario.getEmail());
+            preparedStatement.setLong(5, usuario.getIdUser());
 
             System.out.println("CONSULTA:  " + preparedStatement.toString());
 

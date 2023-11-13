@@ -5,9 +5,13 @@
 package com.dg.bu.rest;
 
 import com.dg.bu.model.Book;
+import com.dg.bu.viewmodel.BookViewModel;
+
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import com.dg.bu.appservice.BookAppService;
 import com.dg.bu.cqrs.BookCqrs;
 import com.dg.bu.dao.BookDao;
 import java.util.List;
@@ -61,7 +65,7 @@ public class BookRest {
     @GET
     @Path("/findBook/{idBook}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findBook(@PathParam("idBook") Long idBook) {
+    public Response findBook(@PathParam("idBook") int idBook) {
         BookDao bookdao = new BookDao();
         Book book = bookdao.getBookById(idBook);
 
@@ -78,6 +82,16 @@ public class BookRest {
     public Response getAll() {
         BookDao bookdao = new BookDao();
         List<Book> books = bookdao.getAllBooks();
+
+        return Response.ok(books).build();
+    }
+
+    @GET
+    @Path("/getAllPublic")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPublic() {
+        BookAppService bookAppService = new BookAppService();
+        List<BookViewModel> books = bookAppService.findBooksPublic();
 
         return Response.ok(books).build();
     }
